@@ -87,7 +87,7 @@ new Vue(
         }
         {
           url: 'https://www.zhihu.com/people/zhao-kang-11'
-          title: 'My Zhihu aaaaaa'
+          title: 'My Zhihu'
         }
       ]
 )
