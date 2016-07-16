@@ -18,8 +18,6 @@ var coffee = require('gulp-coffee');
 var gutil = require('gulp-util');
 var stylus = require('gulp-stylus');
 
-
-
 gulp.task('coffee', function() {
   gulp.src('./src/coffee/*.coffee')
     .pipe(coffee({bare: true}).on('error', gutil.log))
@@ -39,9 +37,8 @@ gulp.task('stylus', function () {
 //   .pipe(jshint.reporter('default'));
 // });
 
-
 // Babel转码, 合并文件, 之后压缩代码
-gulp.task('minify', function() {
+gulp.task('js', ['coffee'], function() {
   gulp.src('./temp/js/*.js')
   .pipe(babel({presets: ['es2015']}))
   .pipe(concat('all.js'))
@@ -52,9 +49,11 @@ gulp.task('minify', function() {
 });
 
 // 监视文件的变化
-gulp.task('watch', function(){
-  gulp.watch(['./src/coffee/*.coffee', './src/stylus/*.styl'], ['coffee', 'minify', 'stylus'])
+gulp.task('watch', ['coffee', 'js', 'stylus'], function(){
+  gulp.watch('./src/coffee/*.coffee', ['coffee'])
+  gulp.watch('./src/stylus/*.styl', ['stylus'])
+  gulp.watch('./temp/js/*.js', ['js'])
 });
 
 // 默认任务
-gulp.task('default', ['coffee', 'minify', 'stylus', 'watch']);
+gulp.task('default', ['coffee', 'js', 'stylus', 'watch']);
