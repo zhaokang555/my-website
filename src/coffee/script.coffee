@@ -1,3 +1,6 @@
+# AsyncComputed = require 'vue-async-computed'
+# Vue.use AsyncComputed
+
 Vue.component 'ul-comp', 
   props: ['ulData']
   template: 
@@ -23,8 +26,15 @@ vm = new Vue
     project: null
     resume: null
     others: null
+  # asyncComputed:
+  #   title: ->
+  #     ret = 'aaa'
+  #     $.getJSON 'http://115.28.21.133:3000/project', (data) -> ret = data.title
+  #     ret
+
+
   ready: ->
-    console.log 'v7'
+    console.log 'v8'
     # vm = @ 
     $.getJSON 'http://115.28.21.133:3000/project', (data) -> vm.$data.project = data
     $.getJSON 'http://115.28.21.133:3000/resume', (data) -> vm.$data.resume = data
